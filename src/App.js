@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Header from "./components/Header";
+import Tabs from "./components/Tabs";
+import Dropdown from "./components/Dropdown";
+import Pagination from "./components/Pagination";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const handleCurrentPage = (page) => {
+    if (page > 0) {
+      setCurrentPage(page);
+    } else {
+      setCurrentPage(1);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header title="HACKER NEWS" />
+      <Tabs options={["All", "My Faves"]} />
+      <Dropdown
+        options={["angular", "reactjs", "vuejs"]}
+        buttonTitle="Select your news"
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalCount={1000}
+        pageSize={20}
+        onPageChange={(page) => handleCurrentPage(page)}
+      />
     </div>
   );
 }
