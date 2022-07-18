@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -21,15 +23,28 @@ const Tab = styled.span`
   color: #6b6b6b;
 `;
 
+const ActiveTab = styled(Tab)`
+  border: solid 1px #1797ff;
+  color: #1797ff
+` 
+
 function Tabs({ options }) {
+  const [ isActive, setIsActive] = useState(null)
+  console.log(isActive)
+
   return (
     <TabWrapper>
       {options.map((option, index) => (
-        <Tab key={index}>{option}</Tab>
+        index === isActive ? 
+        <ActiveTab key={index}>{option}</ActiveTab>
+        : 
+        <Tab key={index} onClick={() =>  setIsActive(index)}>{option}</Tab>
       ))}
     </TabWrapper>
   );
 }
+
+
 
 Tabs.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string),
