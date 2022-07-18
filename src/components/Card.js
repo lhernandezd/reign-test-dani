@@ -4,9 +4,8 @@ import Icon from "./shared/Icon";
 import UHeart from "../assets/unlike.png";
 
 const CardWrapper = styled.div`
-  width: 550px;
+  width: 100%;
   height: 90px;
-  margin: 38px 150px 30px 40px;
   padding: 0 0 0 26px;
   opacity: 0.8;
   border-radius: 6px;

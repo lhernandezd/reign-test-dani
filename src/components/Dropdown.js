@@ -7,6 +7,7 @@ import Icon from "./shared/Icon";
 import AngularIcon from "../assets/angular.png";
 
 const DropdownWrapper = styled.div`
+  width: 240px;
   position: relative;
   display: inline-block;
   margin-bottom: 38px;
@@ -51,8 +52,13 @@ const DropItem = styled.li`
   }
 `;
 
-function Dropdown({ options, buttonTitle }) {
+function Dropdown({ options, buttonTitle, handleSelection }) {
   const [visible, setVisible] = useState(false);
+
+  const handleDropSelection = (option) => {
+    setVisible(false);
+    handleSelection(option);
+  };
 
   return (
     <DropdownWrapper>
@@ -61,7 +67,7 @@ function Dropdown({ options, buttonTitle }) {
       </Button>
       <DropList visible={visible}>
         {options.map((option, index) => (
-          <DropItem key={index} onClick={() => setVisible(false)}>
+          <DropItem key={index} onClick={() => handleDropSelection(option)}>
             <Icon src={AngularIcon} width={20} height={22} />
             <Text style={{ marginLeft: 13 }}>{capitalize(option)}</Text>
           </DropItem>
@@ -74,6 +80,7 @@ function Dropdown({ options, buttonTitle }) {
 Dropdown.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string),
   buttonTitle: PropTypes.string,
+  handleSelection: PropTypes.func,
 };
 
 export default Dropdown;

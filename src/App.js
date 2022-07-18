@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import {
   ContainerComponent as Container,
   MainComponent as Main,
+  GridContainer as Grid,
+  GridElementContainer as GridElement,
 } from "./components/Container";
 import useAxiosFetch from "./hooks/useAxiosFetch";
 import Header from "./components/Header";
@@ -12,21 +14,28 @@ import Pagination from "./components/Pagination";
 import "./App.css";
 
 function App() {
-  const [currentTab, setCurrentTab] = useState("My Faves");
+  const tabsOptions = ["All", "My Faves"];
+  const dropDownOptions = ["angular", "reactjs", "vuejs"];
+  const [currentTab, setCurrentTab] = useState(tabsOptions[0]);
+  const [currentDrop, setCurrentDrop] = useState(dropDownOptions[0]);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
 
-  const { response, loading, error } = useAxiosFetch({
-    url: `/search_by_date?query=react&page=${currentPage - 1}`,
+  const { response, loading } = useAxiosFetch({
+    url: `/search_by_date?query=${currentDrop}&page=${currentPage - 1}`,
     method: "GET",
   });
 
   useEffect(() => {
     if (response !== null) {
       const { hits } = response;
-      setData(hits);
+      setData([hits[0], hits[1]]);
     }
   }, [response]);
+
+  const handleSelection = (tab) => {
+    setCurrentDrop(tab);
+  };
 
   const handleCurrentPage = (page) => {
     if (page > 0) {
@@ -40,21 +49,25 @@ function App() {
     <Container>
       <Header title="HACKER NEWS" />
       <Main>
-        <Tabs options={["All", "My Faves"]} />
+        <Tabs options={tabsOptions} />
         <Dropdown
-          options={["angular", "reactjs", "vuejs"]}
-          buttonTitle="Select your news"
+          options={dropDownOptions}
+          buttonTitle={currentDrop}
+          handleSelection={handleSelection}
         />
-        {!loading &&
-          data.length &&
-          data.map((element) => (
-            <Card
-              key={element.objectID}
-              title={element.story_title}
-              url={element.story_url}
-              created={element.created_at}
-            />
-          ))}
+        <Grid>
+          {!loading &&
+            data.length &&
+            data.map((element) => (
+              <GridElement key={element.objectID}>
+                <Card
+                  title={element.story_title}
+                  url={element.story_url}
+                  created={element.created_at}
+                />
+              </GridElement>
+            ))}
+        </Grid>
         <Pagination
           currentPage={currentPage}
           totalCount={1000}
