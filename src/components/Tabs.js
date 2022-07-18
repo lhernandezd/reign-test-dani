@@ -67,15 +67,3 @@ Tabs.propTypes = {
 };
 
 export default Tabs;
-
-<Tab key={index}>
-  <Text
-    lineHeight="28px"
-    color="#606060"
-    fontWeight="500"
-    size={16}
-    align="center"
-  >
-    {option}
-  </Text>
-</Tab>;
