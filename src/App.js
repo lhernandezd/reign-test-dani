@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {ContainerComponent as Container, MainComponent as Main}  from "./components/Container";
 import Header from "./components/Header";
 import Tabs from "./components/Tabs";
 import Dropdown from "./components/Dropdown";
@@ -15,20 +16,22 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <Container>
       <Header title="HACKER NEWS" />
-      <Tabs options={["All", "My Faves"]} />
-      <Dropdown
-        options={["angular", "reactjs", "vuejs"]}
-        buttonTitle="Select your news"
-      />
-      <Pagination
-        currentPage={currentPage}
-        totalCount={1000}
-        pageSize={20}
-        onPageChange={(page) => handleCurrentPage(page)}
-      />
-    </div>
+      <Main>
+        <Tabs options={["All", "My Faves"]} />
+        <Dropdown
+          options={["angular", "reactjs", "vuejs"]}
+          buttonTitle="Select your news"
+        />
+        <Pagination
+          currentPage={currentPage}
+          totalCount={1000}
+          pageSize={20}
+          onPageChange={(page) => handleCurrentPage(page)}
+        />
+      </Main>
+      </Container>
   );
 }
 
