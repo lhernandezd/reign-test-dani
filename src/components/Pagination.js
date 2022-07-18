@@ -6,6 +6,7 @@ import { usePagination, DOTS } from "../hooks/usePagination";
 const PaginationList = styled.ul`
   display: flex;
   list-style-type: none;
+  justify-content: center;
 `;
 
 const PaginationListItem = styled.li`
