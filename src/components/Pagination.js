@@ -22,7 +22,16 @@ const PaginationListItem = styled.li`
   justify-content: center;
   font-size: 14px;
   font-weight: 400;
+
+  &:hover{
+    cursor: pointer;
+  }
 `;
+
+const ActivePaginationListItem = styled(PaginationListItem)`
+  background-color: #1890ff;
+  color: #fff;
+`
 
 function Pagination({
   onPageChange,
@@ -62,6 +71,15 @@ function Pagination({
               &#8230;
             </PaginationListItem>
           );
+        }
+        if( pageNumber === currentPage) {
+          return (
+            <ActivePaginationListItem
+            key={index}
+            >
+              {pageNumber}
+            </ActivePaginationListItem>
+          )
         }
         return (
           <PaginationListItem

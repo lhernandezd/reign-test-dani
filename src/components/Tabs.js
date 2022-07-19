@@ -19,6 +19,9 @@ const Tab = styled.span`
   vertical-align: middle;
   line-height: 1.75;
   margin-bottom: 68px;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 const ActiveTab = styled(Tab)`
@@ -36,7 +39,7 @@ function Tabs({ options }) {
           <ActiveTab key={index}>
             <Text
               lineHeight="28px"
-              color="#606060"
+              color="#1797ff"
               fontWeight="500"
               size={16}
               align="center"
